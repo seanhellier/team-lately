@@ -1,3 +1,50 @@
 .list-group-item {
   line-height: 2.5;
 }
+h1 {
+  font-family: 'Space Mono';
+  font-size: 40px;
+  line-height: 40px;
+  margin: 0;
+  font-weight: 300;
+  max-width: 400px;
+  padding-bottom: 40px;
+}
+::before, ::after {
+  box-sizing: inherit;
+}
+
+h2 {
+  font-family: 'Space Mono';
+  font-size: 3.56rem;
+  line-height: 3.916rem;
+  margin: 1.78rem 0 1.424rem 0;
+      margin-top: 1.78rem;}
+      h2 {
+        margin-top: 0;
+        font-size: 18px;
+        line-height: 26px;
+        font-weight: 300;
+        max-width: 500px;
+    }
+
+    ::placeholder {
+      color: 
+      #d1d1d1;
+  }
+
+  html {
+    line-height: 1.5;
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.87);
+}
+.hero {
+  color: 
+#fafafa;
+padding-top: 190px;
+background: linear-gradient(50deg,
+HSLA(205, 62%, 44%, 1),
+  #F62D51);
+  width: 100%;
+}
