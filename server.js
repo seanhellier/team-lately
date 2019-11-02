@@ -44,4 +44,10 @@ db.sequelize.sync(syncOptions).then(function() {
   });
 });
 
+app.get('/', function(req,res){
+  connection.query('SElECT * FROM restaurants', function(err, data){
+    res.render('index',{movies:data});
+  })
+})
+
 module.exports = app;
