@@ -32,8 +32,16 @@
 <!--==========================
   Header
   ============================-->
-<header id="header">
-  <div class="container">
+
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <a href="#hero"><img src="/image/favicon-32x32.png" alt="No-Q Logo" title="" /></img></a>
+        <!-- Uncomment below if you prefer to use a text logo -->
+        <!--<h1><a href="#hero">Regna</a></h1>-->
+      </div>
+
 
     <div id="logo" class="pull-left">
       <a href="#hero"><img src="favicon-32x32.png" alt="No-Q Logo" title="" /></img></a>
@@ -53,15 +61,17 @@
 <!--==========================
     Hero Section
   ============================-->
-<section id="hero">
-  <div class="hero-container">
-    <h1>Welcome to NoQ</h1>
 
-    {{!-- Display points section --}}
-    <div id="restCheckin">
-      <p>You have 3 points</p>
-
-      <button id="updateButton">Confirm Seated</button>
+  <section id="hero">
+    <div class="hero-container">
+      <h1>Welcome to NoQ</h1>
+      <h2>Restaurant Wait Times in Real Time! <b>Earn Points</b> for Checking In</h2>
+      <form>
+        <div class="form-group">
+          <input type="search" class="form-control" id="searchInput" placeholder="Restaurant or Location" action="POST">
+        </div>
+      <a href="#searchBtn" id="#search" class="btn-get-started">Search</a>
+      </form>
 
     </div>
 
@@ -79,7 +89,7 @@
 
 <main id="main">
 
-  <!--==========================
+
        Restaurant Card Section
     ============================-->
   <section id="facts">
@@ -142,20 +152,19 @@
           </div>
         </div>
       </div>
-    </div>
-    {{#each restaurant}}
-    <div data-id="{{this.id}}" class="container wow fadeIn row">
-      <div class="col-lg-3 col-6">
-        <img src="{{this.image}}" class="img-thumbnail" alt="image of {{this.name}}">
-      </div class="col-lg-3 col-6">
-      <img src="..img/{{this.id}}">{{this.text}}</a>
-    </div>
-    <div class="col-lg-9 col-18">
-      <div class="section-header">
-        <h3 class="section-title">{{this.restaurant}}</h3>
-        <p class="section-description">{{this.snipped}}</p>
-      </div>
-      <div class="row counters">
+
+       {{#each data.nearby_restaurants}}
+          <div data-id="{{this.id}}" class="container wow fadeIn row">
+             <div class="col-lg-3 col-6">
+            <img src="{{this.featured_image}}" class="img-thumbnail" alt="image of {{this.name}}">
+          </div>
+           <div class="col-lg-9 col-18">
+            <div class="section-header">
+                <h3 class="section-title">{{this.name}}</h3>
+                <p class="section-description">{{this.cuisines}}</p>
+              </div>
+          <div class="row counters">
+
 
 
         <div class="col-lg-3 col-6 text-center">
