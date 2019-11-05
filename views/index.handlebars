@@ -29,118 +29,156 @@
   </div>
 </div> --}}
 
-  <!--==========================
+<!--==========================
   Header
   ============================-->
-  <header id="header">
-    <div class="container">
+<header id="header">
+  <div class="container">
 
-      <div id="logo" class="pull-left">
-        <a href="#hero"><img src="favicon-32x32.png" alt="No-Q Logo" title="" /></img></a>
-        <!-- Uncomment below if you prefer to use a text logo -->
-        <!--<h1><a href="#hero">Regna</a></h1>-->
-      </div>
-
-      <nav id="nav-menu-container">
-        <ul class="nav-menu">
-          <li class="menu-active"><a href="#hero">Home</a></li>
-          <li><a href="#contact">About Us</a></li>
-        </ul>
-      </nav><!-- #nav-menu-container -->
+    <div id="logo" class="pull-left">
+      <a href="#hero"><img src="favicon-32x32.png" alt="No-Q Logo" title="" /></img></a>
+      <!-- Uncomment below if you prefer to use a text logo -->
+      <!--<h1><a href="#hero">Regna</a></h1>-->
     </div>
-  </header><!-- #header -->
 
-  <!--==========================
+    <nav id="nav-menu-container">
+      <ul class="nav-menu">
+        <li class="menu-active"><a href="#hero">Home</a></li>
+        <li><a href="#contact">About Us</a></li>
+      </ul>
+    </nav><!-- #nav-menu-container -->
+  </div>
+</header><!-- #header -->
+
+<!--==========================
     Hero Section
   ============================-->
-  <section id="hero">
-    <div class="hero-container">
-      <h1>Welcome to NoQ</h1>
-      <h2>Restaurant Wait Times in Real Time! <b>Earn Points</b> for Checking In</h2>
-      <form>
-        <div class="form-group">
-          <input type="search" class="form-control" id="searchInput" placeholder="Restaurant or Location">
-        </div>
-      <a href="#searchBtn" id="#search" class="btn-get-started">Search</a>
-      </form>
+<section id="hero">
+  <div class="hero-container">
+    <h1>Welcome to NoQ</h1>
+
+    {{!-- Display points section --}}
+    <div id="restCheckin">
+      <p>You have 3 points</p>
+
+      <button id="updateButton">Confirm Seated</button>
+
     </div>
-  </section><!-- #hero -->
 
-  <main id="main">
+  </div>
 
- <!--==========================
+  <h2>Restaurant Wait Times in Real Time! <b>Earn Points</b> for Checking In</h2>
+  <form>
+    <div class="form-group">
+      <input type="search" class="form-control" id="searchInput" placeholder="Restaurant or Location">
+    </div>
+    <a href="#searchBtn" id="#search" class="btn-get-started">Search</a>
+  </form>
+  </div>
+</section><!-- #hero -->
+
+<main id="main">
+
+  <!--==========================
        Restaurant Card Section
     ============================-->
-    <section id="facts">
-      
-    
-      <div class="container wow fadeIn">
-        <div class="row">
+  <section id="facts">
+
+
+    <div class="container wow fadeIn">
+      <div class="row">
         <div class="col-lg-3 col-6">
-            <img src="https://i.pinimg.com/originals/cf/4c/0f/cf4c0f7ce9c6e38f758d087c81564dac.jpg" class="img-thumbnail" alt="">
+          <img src="https://i.pinimg.com/originals/cf/4c/0f/cf4c0f7ce9c6e38f758d087c81564dac.jpg" class="img-thumbnail"
+            alt="">
         </div>
         <div class="col-lg-9 col-18">
-            <div class="section-header">
-                <h3 class="section-title">Restaurant Buena Cocina</h3>
-                <p class="section-description">Slow Italian with a quick ending!</p>
-              </div>
+          <div class="section-header">
+            <h3 class="section-title">Restaurant Buena Cocina</h3>
+            <p class="section-description">Slow Italian with a quick ending!</p>
+          </div>
           <div class="row counters">
 
-          
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">9</span>
-            <p>Now Waiting</p>
-  				</div>
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">25</span>
-            <p>Mins Wait (Party of 2)</p>
-  				</div>
+            <div class="col-lg-3 col-6 text-center">
+              <span data-toggle="counter-up">9</span>
+              <p>Now Waiting</p>
+            </div>
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">35</span>
-            <p>Mins Wait (3 or more)</p>
-  				</div>
+            <div class="col-lg-3 col-6 text-center">
+              <span data-toggle="counter-up">25</span>
+              <p>Mins Wait (Party of 2)</p>
+            </div>
 
-  			</div>
-        </div>
+            <div class="col-lg-3 col-6 text-center">
+              <span data-toggle="counter-up">35</span>
+              <p>Mins Wait (3 or more)</p>
+            </div>
+
+
+
+            <!--==========================
+            Modal Pop-up to add current waittimes
+            ============================-->
+            <button id="myBtn">Check into Waitlist</button>
+
+            <div id="myModal" class="modal">
+
+              <div id="modelInputs">
+                <form class="clearfix mb-4" action="/api/checkins" method="POST">
+                  <div class="modal-content">
+
+                    <h2>Add your current wait time!</h2>
+
+                    <input name="USER_EMAIL" type="email" class="form-control-1" placeholder="Enter Email Address">
+                    {{!-- <input name="REST_ID" type="hidden" id="example-text" class="form-control-1" placeholder="Enter Resturant"> --}}
+                    <input name="CURRENT_WAIT" type="number" class="form-control-1" placeholder="Enter Current Wait Time (mins)">
+                    <input name="PARTY_SIZE" type="number" class="form-control-1" placeholder="Enter Party Size">
+
+                    <button id="submitWait" class="btn btn-primary float-right">Submit</button>
+                </form>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
-       {{#each restaurant}}
-          <div data-id="{{this.id}}" class="container wow fadeIn row">
-             <div class="col-lg-3 col-6">
-            <img src="{{this.image}}" class="img-thumbnail" alt="image of {{this.name}}">
-        </div class="col-lg-3 col-6">
-            <img src="..img/{{this.id}}">{{this.text}}</a>
-          </div>
-           <div class="col-lg-9 col-18">
-            <div class="section-header">
-                <h3 class="section-title">{{this.restaurant}}</h3>
-                <p class="section-description">{{this.snipped}}</p>
-              </div>
-          <div class="row counters">
+    </div>
+    {{#each restaurant}}
+    <div data-id="{{this.id}}" class="container wow fadeIn row">
+      <div class="col-lg-3 col-6">
+        <img src="{{this.image}}" class="img-thumbnail" alt="image of {{this.name}}">
+      </div class="col-lg-3 col-6">
+      <img src="..img/{{this.id}}">{{this.text}}</a>
+    </div>
+    <div class="col-lg-9 col-18">
+      <div class="section-header">
+        <h3 class="section-title">{{this.restaurant}}</h3>
+        <p class="section-description">{{this.snipped}}</p>
+      </div>
+      <div class="row counters">
 
-          
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">{{this.waiting}}</span>
-            <p>Now Waiting</p>
-  				</div>
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">{{this.smallParty}}</span>
-            <p>Mins Wait (Party of 2)</p>
-  				</div>
-
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">{{this.largeParty}}</span>
-            <p>Mins Wait (3 or more)</p>
-  				</div>
-
-  			</div>
+        <div class="col-lg-3 col-6 text-center">
+          <span data-toggle="counter-up">{{this.waiting}}</span>
+          <p>Now Waiting</p>
         </div>
-          <button class="btn btn-danger delete" id="checkInBtn-{{this.id}}">Check In</button>
-          {{/each}}
-    </section><!-- #restaurants -->
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/index.js"></script>
+        <div class="col-lg-3 col-6 text-center">
+          <span data-toggle="counter-up">{{this.smallParty}}</span>
+          <p>Mins Wait (Party of 2)</p>
+        </div>
+
+        <div class="col-lg-3 col-6 text-center">
+          <span data-toggle="counter-up">{{this.largeParty}}</span>
+          <p>Mins Wait (3 or more)</p>
+        </div>
+
+
+      </div>
+    </div>
+    <button class="btn btn-danger delete" id="checkInBtn-{{this.id}}">Check In</button>
+    {{/each}}
+  </section><!-- #restaurants -->
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/js/index.js"></script>
