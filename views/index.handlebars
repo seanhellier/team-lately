@@ -33,8 +33,9 @@
   Header
   ============================-->
 
-  <header id="header">
-    <div class="container">
+<header id="header">
+  <div class="container">
+
 
 
     <div id="logo" class="pull-left">
@@ -56,6 +57,7 @@
     Hero Section
   ============================-->
 
+
   <section id="hero">
     <div class="hero-container">
       <h1>Welcome to NoQ</h1>
@@ -68,11 +70,16 @@
     
         </div>
           </div>
-         
-      <a href="#searchBtn" id="#search" class="btn-get-started">Search</a>
-      </form>
 
-    </div>
+      <a href="#searchBtn" id="#search" class="btn-get-started">Search</a>
+
+
+    </form>
+    {{!-- Seans Button --}}
+    <p>Click the button to get your coordinates.</p>
+    <button onclick="getLocation()">Try It</button>
+    <p id="demo"></p>
+  </div>
 
   </div>
 
@@ -131,7 +138,8 @@
 
                     <input name="USER_EMAIL" type="email" class="form-control-1" placeholder="Enter Email Address">
                     {{!-- <input name="REST_ID" type="hidden" id="example-text" class="form-control-1" placeholder="Enter Resturant"> --}}
-                    <input name="CURRENT_WAIT" type="number" class="form-control-1" placeholder="Enter Current Wait Time (mins)">
+                    <input name="CURRENT_WAIT" type="number" class="form-control-1"
+                      placeholder="Enter Current Wait Time (mins)">
                     <input name="PARTY_SIZE" type="number" class="form-control-1" placeholder="Enter Party Size">
 
                     <button id="submitWait" class="btn btn-primary float-right">Submit</button>
@@ -145,45 +153,47 @@
         </div>
       </div>
 
-       {{#each data.nearby_restaurants}}
-          <div data-id="{{this.id}}" class="container wow fadeIn row">
-             <div class="col-lg-3 col-6">
-            <img src="{{this.featured_image}}" class="img-thumbnail" alt="image of {{this.name}}">
+      {{#each data.nearby_restaurants}}
+      <div data-id="{{this.id}}" class="container wow fadeIn row">
+        <div class="col-lg-3 col-6">
+          <img src="{{this.featured_image}}" class="img-thumbnail" alt="image of {{this.name}}">
+        </div>
+        <div class="col-lg-9 col-18">
+          <div class="section-header">
+            <h3 class="section-title">{{this.name}}</h3>
+            <p class="section-description">{{this.cuisines}}</p>
           </div>
-           <div class="col-lg-9 col-18">
-            <div class="section-header">
-                <h3 class="section-title">{{this.name}}</h3>
-                <p class="section-description">{{this.cuisines}}</p>
-              </div>
           <div class="row counters">
 
 
 
-        <div class="col-lg-3 col-6 text-center">
-          <span data-toggle="counter-up">{{this.waiting}}</span>
-          <p>Now Waiting</p>
+            <div class="col-lg-3 col-6 text-center">
+              <span data-toggle="counter-up">{{this.waiting}}</span>
+              <p>Now Waiting</p>
+            </div>
+
+            <div class="col-lg-3 col-6 text-center">
+              <span data-toggle="counter-up">{{this.smallParty}}</span>
+              <p>Mins Wait (Party of 2)</p>
+            </div>
+
+
+            <div class="col-lg-3 col-6 text-center">
+              <span data-toggle="counter-up">{{this.largeParty}}</span>
+              <p>Mins Wait (3 or more)</p>
+            </div>
+
+
+          </div>
         </div>
-
-        <div class="col-lg-3 col-6 text-center">
-          <span data-toggle="counter-up">{{this.smallParty}}</span>
-          <p>Mins Wait (Party of 2)</p>
-        </div>
-
-
-        <div class="col-lg-3 col-6 text-center">
-          <span data-toggle="counter-up">{{this.largeParty}}</span>
-          <p>Mins Wait (3 or more)</p>
-        </div>
-
-
-      </div>
-    </div>
-    <button class="btn btn-danger delete" id="checkInBtn-{{this.id}}">Check In</button>
-    {{/each}}
+        <button class="btn btn-danger delete" id="checkInBtn-{{this.id}}">Check In</button>
+        {{/each}}
   </section><!-- #restaurants -->
 
-
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
   <script src="/js/index.js"></script>
   <script src="/js/zomato.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="/js/index.js"></script>
+
+
+  {{!-- <script src="/js/index.js"></script> --}}
