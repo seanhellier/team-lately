@@ -22,8 +22,8 @@ function zomatoAPICall(lat, lng) {
 
 		console.log(restArr);
 		var rest_id = '16784984';
-		ajax.get('/api/examples/' + rest_id).then((res) => {
-			console.log(res);
+		axios.get('/api/examples/' + rest_id).then((res) => {
+			// console.log(res);
 		});
 	});
 }
@@ -44,5 +44,6 @@ function showPosition(position) {
 		lat: position.coords.latitude,
 		lng: position.coords.longitude
 	};
+	console.log("for zomato")
 	zomatoAPICall(pos.lat, pos.lng);
 }

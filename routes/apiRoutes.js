@@ -23,14 +23,25 @@ module.exports = function (app) {
 
 
   // Get data on resturant selected
-  app.get("/api/checkins", function (req, res) {
+  app.get("/api/checkins/", function (req, res) {
     db.checkins.findAll({
       where: {
         REST_ID: "11"
       }
     }).then(function (dbcheckins) {
       res.json(dbcheckins);
+    });
+  });
 
+  // Averages objects
+  app.get("/api/checkinave/", function (req, res) {
+    db.checkins.findAll({
+      attributes: ['REST_ID', [sequelize.fn('count', sequelize.col('REST_ID')), 'count']],
+      group: ['checkins.itemId'],
+      raw: true,
+      order: sequelize.literal('count DESC')
+    }).then(function ( average ) {
+      res.json( average );
     });
   });
 
