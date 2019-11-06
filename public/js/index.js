@@ -3,6 +3,7 @@ var $exampleText = $("#example-text");
 var $exampleDescription = $("#example-description");
 var $submitBtn = $("#submit");
 var $exampleList = $("#example-list");
+var $updateBtn = $("#updateButton");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -20,6 +21,12 @@ var API = {
     return $.ajax({
       url: "api/examples",
       type: "GET"
+    });
+  },
+  updateExample: function(id) {
+    return $.ajax({
+      url: "api/checkins/" + id,
+      type: "PUT"
     });
   },
   deleteExample: function(id) {
@@ -82,6 +89,18 @@ var handleFormSubmit = function(event) {
   $exampleDescription.val("");
 };
 
+// handleUpdateBtnClick is called when an example's update button is clicked
+// Update the example from the db and refresh the list
+var handleUpdateBtnClick = function() {
+  var idToUpdate = $(this)
+    .parent()
+    .attr("data-id");
+
+  API.updateExample(idToUpdate).then(function() {
+    refreshExamples();
+  });
+};
+
 // handleDeleteBtnClick is called when an example's delete button is clicked
 // Remove the example from the db and refresh the list
 var handleDeleteBtnClick = function() {
@@ -94,6 +113,56 @@ var handleDeleteBtnClick = function() {
   });
 };
 
+
+
+// >>>>>>> JS Required for Modal >>>>>>>
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+// span.onclick = function() {
+//   modal.style.display = "none";
+// }
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
 $exampleList.on("click", ".delete", handleDeleteBtnClick);
+
+
+
+// >>>>>>> PUT REQUEST TO TAKE USER OFF WAITLIST >>>>>>>
+
+$("#updateButton").click(function() {
+  $.ajax({
+    url: "/api/checkinconfirm",
+    method: "PUT"
+  }).then(function(response) {
+    console.log(response);
+  });
+})
+
+
+
+
+
