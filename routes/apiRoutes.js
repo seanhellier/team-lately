@@ -3,18 +3,18 @@ var db = require("../models");
 module.exports = function (app) {
 
   // Create a new example
-  app.post("/api/examples", function (req, res) {
-    db.Example.create(req.body).then(function (dbExample) {
-      res.json(dbExample);
-    });
-  });
+  // app.post("/api/examples", function (req, res) {
+  //   db.Example.create(req.body).then(function (dbExample) {
+  //     res.json(dbExample);
+  //   });
+  // });
 
-  // Delete an example by id
-  app.delete("/api/examples/:id", function (req, res) {
-    db.Example.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
-      res.json(dbExample);
-    });
-  });
+  // // Delete an example by id
+  // app.delete("/api/examples/:id", function (req, res) {
+  //   db.Example.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
+  //     res.json(dbExample);
+  //   });
+  // });
 
 
   // <!--==========================
@@ -23,15 +23,16 @@ module.exports = function (app) {
 
 
   // Get data on resturant selected
-  app.get("/api/checkins/", function (req, res) {
-    db.checkins.findAll({
-      where: {
-        REST_ID: "11"
-      }
-    }).then(function (dbcheckins) {
-      res.json(dbcheckins);
-    });
-  });
+  // app.get("/api/checkins/", function (req, res) {
+  //   db.checkins.findAll({
+  //     where: {
+  //       REST_ID: "11"
+  //     }
+  //   }).then(function (dbcheckins) {
+  //     // res.json(dbcheckins);
+  //     res.redirect('/')
+  //   });
+  // });
 
   // Averages objects
   app.get("/api/checkinave/", function (req, res) {
@@ -41,7 +42,9 @@ module.exports = function (app) {
       raw: true,
       order: sequelize.literal('count DESC')
     }).then(function ( average ) {
-      res.json( average );
+     // res.json( average );
+
+     res.redirt("/")
     });
   });
 
