@@ -36,15 +36,9 @@
   <header id="header">
     <div class="container">
 
-      <div id="logo" class="pull-left">
-        <a href="#hero"><img src="/image/favicon-32x32.png" alt="No-Q Logo" title="" /></img></a>
-        <!-- Uncomment below if you prefer to use a text logo -->
-        <!--<h1><a href="#hero">Regna</a></h1>-->
-      </div>
-
 
     <div id="logo" class="pull-left">
-      <a href="#hero"><img src="favicon-32x32.png" alt="No-Q Logo" title="" /></img></a>
+      <a href="#hero"><img src="/image/favicon-32x32.png" alt="No-Q Logo" title="" /></img></a>
       <!-- Uncomment below if you prefer to use a text logo -->
       <!--<h1><a href="#hero">Regna</a></h1>-->
     </div>
@@ -67,9 +61,14 @@
       <h1>Welcome to NoQ</h1>
       <h2>Restaurant Wait Times in Real Time! <b>Earn Points</b> for Checking In</h2>
       <form>
-        <div class="form-group">
-          <input type="search" class="form-control" id="searchInput" placeholder="Restaurant or Location" action="POST">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id="searchInput" placeholder="Restaurant or Location" action="POST">
+          <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="glyphicon glyphicon-globe"></i></button>
+    
         </div>
+          </div>
+         
       <a href="#searchBtn" id="#search" class="btn-get-started">Search</a>
       </form>
 
@@ -77,21 +76,11 @@
 
   </div>
 
-  <h2>Restaurant Wait Times in Real Time! <b>Earn Points</b> for Checking In</h2>
-  <form>
-    <div class="form-group">
-      <input type="search" class="form-control" id="searchInput" placeholder="Restaurant or Location">
-    </div>
-    <a href="#searchBtn" id="#search" class="btn-get-started">Search</a>
-  </form>
-  </div>
+  
 </section><!-- #hero -->
 
 <main id="main">
 
-
-       Restaurant Card Section
-    ============================-->
   <section id="facts">
 
 
@@ -130,12 +119,13 @@
             Modal Pop-up to add current waittimes
             ============================-->
             <button id="myBtn">Check into Waitlist</button>
-
-            <div id="myModal" class="modal">
-
-              <div id="modelInputs">
+            
+            <div id="myModal" class="modal" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div id="modelInputs">
                 <form class="clearfix mb-4" action="/api/checkins" method="POST">
-                  <div class="modal-content">
+                 
 
                     <h2>Add your current wait time!</h2>
 
@@ -146,6 +136,8 @@
 
                     <button id="submitWait" class="btn btn-primary float-right">Submit</button>
                 </form>
+                </div>
+              </div>
               </div>
             </div>
 

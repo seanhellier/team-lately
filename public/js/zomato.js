@@ -9,7 +9,8 @@ var x = document.getElementById('demo');
 const config = { headers: { 'user-key': 'bf0b007a082354a7c35efef48bf5a3c9' } };
 
 function zomatoAPICall(lat, lng) {
-	axios.get(`https://developers.zomato.com/api/v2.1/geocode?lat=${lat}&lon=${lng}`, config).then((response) => {
+	axios.get(`https://developers.zomato.com/api/v2.1/geocode?lat=${lat}&lon=${lng}`, config)
+	.then((response) => {
 		console.log(response);
 
 		var restArr = [];
@@ -22,9 +23,9 @@ function zomatoAPICall(lat, lng) {
 
 		console.log(restArr);
 		var rest_id = '16784984';
-		ajax.get('/api/examples/' + rest_id).then((res) => {
-			console.log(res);
-		});
+		ajax.post('/api/zamatoresults/',{
+			restArr: restArr
+		})
 	});
 }
 
