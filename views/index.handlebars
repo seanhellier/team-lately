@@ -65,21 +65,17 @@
     <form>
       <div class="input-group mb-3">
         <input type="text" class="form-control" id="searchInput" placeholder="Restaurant or Location" action="POST">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i
-              class="glyphicon glyphicon-globe"></i></button>
-
-        </div>
+        
       </div>
 
-      <a href="#searchBtn" id="#search" class="btn-get-started">Search</a>
+      <a href="#searchBtn" id="#search" class="btn-get-started" onclick="getLocation()">Search</a>
 
 
     </form>
 
     {{!-- Seans Button --}}
-    <p>Click the button to get your coordinates.</p>
-    <button onclick="getLocation()">Try It</button>
+    {{!-- <p>Click the button to get your coordinates.</p>
+    <button onclick="getLocation()">Try It</button> --}}
     <p id="demo"></p>
 
 {{!--     
@@ -135,13 +131,13 @@
             <!--==========================
             Modal Pop-up to add current waittimes
             ============================-->
-            <button id="myBtn">Check into Waitlist</button>
+            <button class="btn btn-primary" id="myBtn">Check into Waitlist</button>
 
             <div id="myModal" class="modal" tabindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                  <div id="modelInputs">
-                    <form class="clearfix mb-4" action="/api/checkins" method="POST">
+                  <div id="modelInputs input-group mb-3">
+                    <form class="clearfix mb-4 form-control" action="/api/checkins" method="POST">
 
 
                       <h2>Add your current wait time!</h2>
@@ -212,7 +208,7 @@
             <p class="section-description">The latest, greatest team in the building!</p>
           </div>
   
-  
+  <div class="row">
             <div class="col-lg-3 col-md-6">
               <div class="member">
                 <div class="pic"><img src="image/mugs/john.jpg" alt="John Harper product manager"></div>
@@ -241,7 +237,7 @@
               </div>
             </div>
 
-                    <div class="row">
+                
             <div class="col-lg-3 col-md-6">
               <div class="member">
                 <div class="pic"><img src="image/mugs/sam.png" alt="Sam Will Database Engineer"></div>
@@ -269,7 +265,6 @@
                 </div>
               </div>
             </div>
-  
             
           </div>
   
@@ -282,7 +277,7 @@
       <div class="container wow fadeIn">
         <div class="section-header">
           <h3 class="section-title">The Problem</h3>
-          <p class="section-description">Wait times at restaurants and clubs can make you late and interrupt life, but remain guessing game</p>
+          <p class="section-description">Wait times at restaurants and clubs can make you late and interrupt life, but remain a guessing game.</p>
         </div>
         <div class="row">
           <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
@@ -361,7 +356,7 @@
   
   
 
-  <!-- JavaScript Libraries -->
+  {{!-- <!-- JavaScript Libraries -->
   <script src="lib/jquery/jquery.min.js"></script>
   <script src="lib/jquery/jquery-migrate.min.js"></script>
   <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -373,7 +368,7 @@
   <script src="lib/superfish/superfish.min.js"></script>
 
   <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script>
+  <script src="contactform/contactform.js"></script> --}}
 
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>
