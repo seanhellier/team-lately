@@ -4,7 +4,8 @@ module.exports = function (sequelize, DataTypes) {
         USER_EMAIL: DataTypes.TEXT,
         CURRENT_WAIT: DataTypes.INTEGER,
         PARTY_SIZE: DataTypes.INTEGER,
-        WAIT_ACTIVE: DataTypes.BOOLEAN
+        WAIT_ACTIVE: DataTypes.BOOLEAN,
+  
     });
     return checkins;
 };

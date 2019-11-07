@@ -13,7 +13,14 @@ const pageModel = {
   party3More: {
     count: 0,
     wait: 0
-  }
+  },
+  rest_image: "https://b.zmtcdn.com/data/res_imagery/17212050_RESTAURANT_f8adb2c46628653a0eddb1dfeb6d210a_c.jpg",
+  rest_name: "Carlo's Bakery",
+  rest_cuisines: "Desserts",
+  rest_address: "95 Washington Street, Hoboken 07030",
+  rest_lat: "40.7371700000",
+  rest_long: "-74.0307850000",
+
 }
 
 
@@ -27,7 +34,8 @@ module.exports = function (app) {
       }, raw: true
     }).then(function (dbResult) {
 
-      // console.log(dbResult)
+      // Reset var to 0
+      pageModel.totalWaiting = 0
 
       for (var i = 0; i < dbResult.length; i++) {
         if (dbResult[i].PARTY_SIZE <= 2) {

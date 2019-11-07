@@ -57,7 +57,7 @@ module.exports = function (app) {
       USER_EMAIL: req.body.USER_EMAIL,
       CURRENT_WAIT: req.body.CURRENT_WAIT,
       PARTY_SIZE: req.body.PARTY_SIZE,
-      WAIT_ACTIVE: 1
+      WAIT_ACTIVE: 1,
     }).then(function (dbcheckins) {
       res.redirect("/")
     });
