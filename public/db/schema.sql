@@ -1,0 +1,36 @@
+USE lk5mtuel351h6qm5;
+
+CREATE TABLE users
+(
+    USER_ID INTEGER NOT NULL
+    AUTO_INCREMENT,
+	USERNAME varchar
+    (255) NOT NULL,
+    EMAIL varchar
+    (255) NOT NULL,
+    POINTS INTEGER
+    (30),
+    LAST_CHECKIN DATE,
+     STATUS VARCHAR
+    (255),
+	PRIMARY KEY
+    (USER_ID)
+    )
+
+    CREATE TABLE restaurant
+    (
+        REST_ID INTEGER NOT NULL
+        AUTO_INCREMENT,
+	REST_NAME varchar
+        (255) NOT NULL,
+    LOCATION_CODE INTEGER
+        (30) NOT NULL,
+    CURRENTLY_WAIT INTEGER
+        (30) NOT NULL,
+    AVG_SM_PARTY_WAIT TIME
+        (0) NOT NULL,
+    AVG_LG_PARTY_WAIT TIME
+        (0) NOT NULL,
+	PRIMARY KEY
+        (REST_ID)
+    )
