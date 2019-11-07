@@ -76,16 +76,19 @@
 
 
     </form>
+
     {{!-- Seans Button --}}
     <p>Click the button to get your coordinates.</p>
-    {{!-- <button onclick="getLocation()">Try It</button> --}}
+    <button onclick="getLocation()">Try It</button>
+    <p id="demo"></p>
 
+{{!--     
     <form action="/zomato" method="post">
       Lat: <input type="text" name="lat" value="40.723548"><br>
       Lng: <input type="text" name="lng" value="-74.0085838"><br>
       <input type="submit" value="GetRest">
-    </form>
-    <p id="demo"></p>
+    </form> --}}
+
   </div>
 
   </div>
@@ -101,12 +104,12 @@
     <div class="container wow fadeIn">
       <div class="row">
         <div class="col-lg-3 col-6">
-          <img src="https://i.pinimg.com/originals/cf/4c/0f/cf4c0f7ce9c6e38f758d087c81564dac.jpg" class="img-thumbnail"
+          <img src={{rest_image}} class="img-thumbnail"
             alt="">
         </div>
         <div class="col-lg-9 col-18">
           <div class="section-header">
-            <h3 class="section-title">Restaurant Buena Cocina</h3>
+            <h3 class="section-title">{{rest_name}}</h3>
             <p class="section-description">Slow Italian with a quick ending!</p>
           </div>
           <div class="row counters">
@@ -161,9 +164,9 @@
       </div>
 
 
-      {{#each checkins}}
+      {{!-- {{#each checkins}}
       {{USER_EMAIL}}
-      {{/each}}
+      {{/each}} --}}
 
       {{!-- {{#each data.nearby_restaurants}}
       <div data-id="{{this.id}}" class="container wow fadeIn row">
