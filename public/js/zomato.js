@@ -29,8 +29,7 @@ function zomatoAPICall(lat, lng) {
 			restArr: restArr
 		})
 
-    
-    
+
 		axios.get('/api/examples/' + rest_id).then((res) => {
 			// console.log(res);
 		});
