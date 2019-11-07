@@ -153,14 +153,14 @@
         </div>
       </div>
 
-      {{#each data.nearby_restaurants}}
-      <div data-id="{{this.id}}" class="container wow fadeIn row">
+      {{#each restArr}}
+      <div data-id="{{this.rest_id}}" class="container wow fadeIn row">
         <div class="col-lg-3 col-6">
-          <img src="{{this.featured_image}}" class="img-thumbnail" alt="image of {{this.name}}">
+          <img src="{{this.featured_image}}" class="img-thumbnail" alt="image of {{this.rest_name}}">
         </div>
         <div class="col-lg-9 col-18">
           <div class="section-header">
-            <h3 class="section-title">{{this.name}}</h3>
+            <h3 class="section-title">{{this.rest_name}}</h3>
             <p class="section-description">{{this.cuisines}}</p>
           </div>
           <div class="row counters">

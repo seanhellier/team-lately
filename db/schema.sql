@@ -19,12 +19,21 @@ CREATE TABLE users
 
     CREATE TABLE restaurant
     (
-        REST_ID INTEGER NOT NULL
+        id INTEGER NOT NULL
         AUTO_INCREMENT,
+        rest_id INTEGER NOT NULL,
 	REST_NAME varchar
         (255) NOT NULL,
-    LOCATION_CODE INTEGER
-        (30) NOT NULL,
+        REST_address varchar
+        (255) NOT NULL,
+  REST_image varchar
+        (255) NOT NULL,
+         rest_cuisines varchar
+        (255) NOT NULL,
+            rest_lat
+        (255) NOT NULL,
+
+
     CURRENTLY_WAIT INTEGER
         (30) NOT NULL,
     AVG_SM_PARTY_WAIT TIME

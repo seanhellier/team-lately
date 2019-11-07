@@ -1,29 +1,44 @@
-var db = require("../models");
+var db = require('../models');
+var express = require('express');
 
+var router = express.Router();
+
+// Import the model (cat.js) to use its database functions.
+var rest = require('../public/js/zomato.js');
+
+// Create all our routes and set up logic within those routes where required.
+router.get('/', function(req, res) {
+	rest.all(function(restArr) {
+		var hbsObject = {
+			rest: restArr
+		};
+		console.log(hbsObject);
+		res.render('index', hbsObject);
+	});
+});
 module.exports = function(app) {
-  // Load index page
-  app.get("/", function(req, res) {
-    db.Example.findAll({}).then(function(dbExample) {
-      res.render("index", 
-      {
-        msg: "Welcome!",
-        examples: dbExample
-      });
-    });
-    // console.log(dbExample)
-  });
+	// Load index page
+	app.get('/', function(req, res) {
+		db.Example.findAll({}).then(function(dbExample) {
+			res.render('index', {
+				msg: 'Welcome!',
+				examples: dbExample
+			});
+		});
+		// console.log(dbExample)
+	});
 
-  // Load example page and pass in an example by id
-  app.get("/example/:id", function(req, res) {
-    db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
-      res.render("example", {
-        example: dbExample
-      });
-    });
-  });
+	// Load example page and pass in an example by id
+	app.get('/example/:id', function(req, res) {
+		db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
+			res.render('example', {
+				example: dbExample
+			});
+		});
+	});
 
-  // Render 404 page for any unmatched routes
-  app.get("*", function(req, res) {
-    res.render("404");
-  });
+	// Render 404 page for any unmatched routes
+	app.get('*', function(req, res) {
+		res.render('404');
+	});
 };
