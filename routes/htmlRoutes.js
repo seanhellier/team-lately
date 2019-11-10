@@ -1,5 +1,6 @@
 var db = require('../models');
 var axios = require('axios');
+// var zomato = require('./../public/js/zomato');
 const config = { headers: { 'user-key': 'bf0b007a082354a7c35efef48bf5a3c9' } };
 
 const pageModel = {
@@ -25,6 +26,9 @@ const pageModel = {
 module.exports = function(app) {
 	// Load index page
 	app.get('/', function(req, res) {
+		// zomato.getLocation();
+		// console.log('The Good Stuff:', restArr);
+
 		db.checkins
 			.findAll({
 				where: {
@@ -57,7 +61,6 @@ module.exports = function(app) {
 				console.log(pageModel);
 				res.render('index', pageModel);
 			});
-		// console.log(dbExample)
 	});
 
 	app.post('/zomato', function(req, res) {

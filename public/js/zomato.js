@@ -1,7 +1,8 @@
 // 16781992
 // 16784984
 
-// alert("it's connected");
+alert("it's connected");
+
 console.log("it's connected");
 
 var x = document.getElementById('demo');
@@ -21,22 +22,22 @@ function zomatoAPICall(lat, lng) {
 				rest_lat: restaurantList[i].restaurant.location.latitude,
 				rest_long: restaurantList[i].restaurant.location.longitude,
 				rest_address: restaurantList[i].restaurant.location.address,
-				rest_image: restaurantList[i].restaurant.featured_image,
-				waiting: 0,
-				waitTime: 0
+				rest_image: restaurantList[i].restaurant.featured_image
 			});
 		}
 		console.log('The Good Stuff:', restArr);
-		// axios.post('/api/restData', restArr).then((res) => {
-		// 	console.log(res);
-		// });
+		axios.post('/api/restData', restArr).then((res) => {
+			console.log(res);
+		});
 	});
 }
+
 function getLocation() {
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(showPosition);
 	} else {
 		x.innerHTML = 'Geolocation is not supported by this browser.';
+		console.log('getLocation error');
 	}
 }
 
@@ -51,3 +52,6 @@ function showPosition(position) {
 	console.log('for zomato');
 	zomatoAPICall(pos.lat, pos.lng);
 }
+// module.exports = {
+// 	getLocation: getLocation
+// };

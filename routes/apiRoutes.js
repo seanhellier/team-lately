@@ -56,13 +56,13 @@ module.exports = function(app) {
 				USER_EMAIL: req.body.USER_EMAIL,
 				CURRENT_WAIT: req.body.CURRENT_WAIT,
 				PARTY_SIZE: req.body.PARTY_SIZE,
-				WAIT_ACTIVE: 1
-				// REST_NAME: req.body.REST_NAME
-				// REST_CUISINES: req.body.REST_CUISINES,
-				// REST_LAT: req.body.REST_LAT,
-				// REST_LONG: req.body.REST_LONG,
-				// REST_ADDRESS: req.body.REST_ADDRESS,
-				// REST_IMAGE: req.body.REST_IMAGE
+				WAIT_ACTIVE: 1,
+				REST_NAME: req.body.REST_NAME,
+				REST_CUISINES: req.body.REST_CUISINES,
+				REST_LAT: req.body.REST_LAT,
+				REST_LONG: req.body.REST_LONG,
+				REST_ADDRESS: req.body.REST_ADDRESS,
+				REST_IMAGE: req.body.REST_IMAGE
 			})
 			.then(function(dbcheckins) {
 				res.redirect('/');
