@@ -69,6 +69,32 @@ module.exports = function(app) {
 			});
 	});
 
+	// restaurants zomato data
+	app.post('/api/restData', function(req, res) {
+		console.log('this is restData');
+		// console.log(req.body);
+		for (let i = 0; i < req.body.length; i++) {
+			// console.log(i);
+			// console.log(req.body[i].rest_name);
+
+			db.Restaurants
+				.create({
+					REST_ID: req.body[i].rest_id,
+					REST_NAME: req.body[i].rest_name,
+					REST_CUISINES: req.body[i].rest_cuisines,
+					REST_LAT: req.body[i].rest_lat,
+					REST_LONG: req.body[i].rest_long,
+					REST_ADDRESS: req.body[i].rest_address,
+					REST_IMAGE: req.body[i].rest_image
+				})
+				.then(function(dbrestaurants) {
+					console.log(dbrestaurants);
+					// res.redirect('/');
+				});
+		}
+		res.json('restData route hit');
+	});
+
 	// Update database for when user has checked in
 	app.put('/api/checkinconfirm', function(req, res) {
 		db.checkins
