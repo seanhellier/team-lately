@@ -1,7 +1,9 @@
 var db = require('../models');
+var rest = require('../models/Restaurants')
 var axios = require('axios');
 // var zomato = require('./../public/js/zomato');
 const config = { headers: { 'user-key': 'bf0b007a082354a7c35efef48bf5a3c9' } };
+
 
 const pageModel = {
 	checkins: [],
@@ -22,13 +24,18 @@ const pageModel = {
 	rest_lat: '40.8180821000',
 	rest_long: '-73.9609373000'
 };
-
+var nearby_restaurants =[];
 module.exports = function(app) {
 	// Load index page
 	app.get('/', function(req, res) {
 		// zomato.getLocation();
 		// console.log('The Good Stuff:', restArr);
-
+		db.Restaurants.findAll({
+		}).then(function(restaurant) {
+		  console.log("Data for HTML Route:",restaurant);
+		  nearby_restaurants.push(restaurant)
+		});
+		
 		db.checkins
 			.findAll({
 				where: {
@@ -37,6 +44,12 @@ module.exports = function(app) {
 				raw: true
 			})
 			.then(function(dbResult) {
+
+				
+
+
+			
+
 				// Reset var to 0
 				pageModel.totalWaiting = 0;
 
@@ -59,8 +72,10 @@ module.exports = function(app) {
 				pageModel.checkins = dbResult;
 
 				console.log(pageModel);
-				res.render('index', pageModel);
+				res.render('index', {pageModel});
 			});
+
+			
 	});
 
 	app.post('/zomato', function(req, res) {
