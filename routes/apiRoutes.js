@@ -1,6 +1,6 @@
 var db = require('../models');
 
-module.exports = function(app) {
+module.exports = function (app) {
 	// Create a new example
 	// app.post("/api/examples", function (req, res) {
 	//   db.Example.create(req.body).then(function (dbExample) {
@@ -32,15 +32,15 @@ module.exports = function(app) {
 	// });
 
 	// Averages objects
-	app.get('/api/checkinave/', function(req, res) {
+	app.get('/api/checkinave/', function (req, res) {
 		db.checkins
 			.findAll({
-				attributes: [ 'REST_ID', [ sequelize.fn('count', sequelize.col('REST_ID')), 'count' ] ],
-				group: [ 'checkins.itemId' ],
+				attributes: ['REST_ID', [sequelize.fn('count', sequelize.col('REST_ID')), 'count']],
+				group: ['checkins.itemId'],
 				raw: true,
 				order: sequelize.literal('count DESC')
 			})
-			.then(function(average) {
+			.then(function (average) {
 				// res.json( average );
 
 				res.redirt('/');
@@ -48,11 +48,11 @@ module.exports = function(app) {
 	});
 
 	// Add a new checkin to the database
-	app.post('/api/checkins', function(req, res) {
+	app.post('/api/checkins/:restID', function (req, res) {
 		console.log(req.body);
 		db.checkins
 			.create({
-				REST_ID: 11,
+				REST_ID: req.params.restID,
 				USER_EMAIL: req.body.USER_EMAIL,
 				CURRENT_WAIT: req.body.CURRENT_WAIT,
 				PARTY_SIZE: req.body.PARTY_SIZE,
@@ -64,16 +64,23 @@ module.exports = function(app) {
 				REST_ADDRESS: req.body.REST_ADDRESS,
 				REST_IMAGE: req.body.REST_IMAGE
 			})
-			.then(function(dbcheckins) {
+			.then(function (dbcheckins) {
 				res.redirect('/');
 			});
 	});
 
 	// restaurants zomato data
-	app.post('/api/restData', function(req, res) {
+	app.post('/api/restData', function (req, res) {
 		console.log('this is restData');
-		// console.log(req.body);
+		console.log(req.body);
 		for (let i = 0; i < req.body.length; i++) {
+
+			// db.Restaurants.find({where: {REST_ID: req.body[i].rest_id}})
+			// 	.then(function(dbResult){
+			// 		if(dbResult){
+			// 			db.Restaurants.update()//
+			// 		}
+			// 	})
 			// console.log(i);
 			// console.log(req.body[i].rest_name);
 
@@ -87,7 +94,7 @@ module.exports = function(app) {
 					REST_ADDRESS: req.body[i].rest_address,
 					REST_IMAGE: req.body[i].rest_image
 				})
-				.then(function(dbrestaurants) {
+				.then(function (dbrestaurants) {
 					console.log(dbrestaurants);
 					// res.redirect('/');
 				});
@@ -96,7 +103,7 @@ module.exports = function(app) {
 	});
 
 	// Update database for when user has checked in
-	app.put('/api/checkinconfirm', function(req, res) {
+	app.put('/api/checkinconfirm', function (req, res) {
 		db.checkins
 			.update(
 				{
@@ -108,7 +115,7 @@ module.exports = function(app) {
 					}
 				}
 			)
-			.then(function(dbcheckins) {
+			.then(function (dbcheckins) {
 				res.redirect('/');
 			});
 	});
