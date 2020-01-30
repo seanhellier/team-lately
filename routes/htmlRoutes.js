@@ -26,7 +26,13 @@ const pageModel = {
 
 module.exports = function (app) {
 	// Load index page
-	app.get('/', async function (req, res) {
+
+	app.get('/', function(req, res, next) {
+		res.render('index')
+	});
+
+
+	app.get('/search', async function (req, res) {
 		pageModel.totalWaiting = 0;
 		// zomato.getLocation();
 		// console.log('The Good Stuff:', restArr);
@@ -67,7 +73,7 @@ module.exports = function (app) {
 			pageModel.rest_address = dbRest[0].REST_ADDRESS
 			pageModel.rest_id = dbRest[0].REST_ID
 			
-			console.log(dbRest);
+			console.log("pageModel:",pageModel);
 			res.render('index', pageModel);
 		} catch (error) {
 			console.log(error.message)

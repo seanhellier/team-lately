@@ -97,7 +97,7 @@
   <section id="facts">
 
 
-    <div class="container wow fadeIn">
+    {{!-- <div class="container wow fadeIn">
       <div class="row">
         <div class="col-lg-3 col-6">
           <img src={{rest_image}} class="img-thumbnail"
@@ -157,9 +157,74 @@
 
           </div>
         </div>
-      </div>
+      </div> --}}
+
+<ul class="restaurant-list">
+  {{#each pageModel}}
+    <li>
+      <div class="container wow fadeIn">
+      <div class="row">
+        <div class="col-lg-3 col-6">
+          <img src={{this.rest_image}} class="img-thumbnail"
+            alt="">
+        </div>
+        <div class="col-lg-9 col-18">
+          <div class="section-header">
+            <h3 class="section-title">{{this.rest_name}}</h3>
+            <p class="section-description">{{this.rest_address}}</p>
+          </div>
+          <div class="row counters">
 
 
+            <div class="col-lg-3 col-6 text-center">
+              <span data-toggle="counter-up">{{this.totalWaiting}}</span>
+              <p>Now Waiting</p>
+            </div>
+
+            <div class="col-lg-3 col-6 text-center">
+              <span data-toggle="counter-up">{{this.party2Max.avgWait}}</span>
+              <p>Mins Wait (Party of 2)</p>
+            </div>
+
+            <div class="col-lg-3 col-6 text-center">
+              <span data-toggle="counter-up">{{this.party3More.avgWait}}</span>
+              <p>Mins Wait (3 or more)</p>
+            </div>
+
+
+
+            <!--==========================
+            Modal Pop-up to add current waittimes
+            ============================-->
+            <button class="btn btn-primary" id="myBtn">Check into Waitlist</button>
+
+            <div id="myModal" class="modal" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div id="modelInputs input-group mb-3">
+                    <form class="clearfix mb-4 form-control" action="/api/checkins/{{this.rest_id}}" method="POST">
+
+
+                      <h2>Add your current wait time!</h2>
+
+                      <input name="USER_EMAIL" type="email" class="form-control-1" placeholder="Enter Email Address">
+                      {{!-- <input name="REST_ID" type="hidden" id="example-text" class="form-control-1" placeholder="Enter Resturant"> --}}
+                      <input name="CURRENT_WAIT" type="number" class="form-control-1"
+                        placeholder="Enter Current Wait Time (mins)">
+                      <input name="PARTY_SIZE" type="number" class="form-control-1" placeholder="Enter Party Size">
+
+                      <button id="submitWait" class="btn btn-primary float-right">Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div></li>
+    {{/each}}
+</ul>
       {{!-- {{#each checkins}}
       {{USER_EMAIL}}
       {{/each}} --}}
