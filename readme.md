@@ -1,6 +1,6 @@
 # Team-Lately
 
-Began as a class group project and finished by me afterwards, Team-Lately is a React app using location services, MySQL, and the Zomato restaurant API to crowdsource wait times at popular restaurants that was completed by me after class ended.
+Began as a class group project and finished by me afterwards, Team-Lately is a React app using location services, MySQL, and the Zomato restaurant API to crowdsource wait times at popular restaurants.
 
 ## Getting Started
 
