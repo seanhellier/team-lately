@@ -3,7 +3,7 @@ var $exampleText = $("#example-text");
 var $exampleDescription = $("#example-description");
 var $submitBtn = $("#submit");
 var $exampleList = $("#example-list");
-var $updateBtn = $("#updateButton");
+// var $updateBtn = $("#updateButton");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -121,15 +121,21 @@ var handleDeleteBtnClick = function() {
 var modal = document.getElementById("myModal");
 
 // Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+// var btn = document.getElementByClass("");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
-}
+// btn.onclick = function() {
+//   alert("adasdad")
+//   // modal.style.display = "block";
+// }
+
+$( ".myBtn" ).click(function() {
+   modal.style.display = "block";
+   $('#modalForm').attr('action', `/api/checkins/${this.dataset.id}`);
+});
 
 // When the user clicks on <span> (x), close the modal
 // span.onclick = function() {
@@ -158,10 +164,6 @@ $("#updateButton").click(function() {
     url: "/api/checkinconfirm",
     method: "PUT"
   }).then(function(response) {
-    console.log(response);
+    // console.log(response);
   });
 })
-
-
-
-

@@ -1,16 +1,15 @@
 // 16781992
 // 16784984
 
-alert("it's connected");
-
-console.log("it's connected");
+// alert("it's connected");
 
 var x = document.getElementById('demo');
 
 const config = { headers: { 'user-key': 'bf0b007a082354a7c35efef48bf5a3c9' } };
+//helper function
 function zomatoAPICall(lat, lng) {
 	axios.get(`https://developers.zomato.com/api/v2.1/geocode?lat=${lat}&lon=${lng}`, config).then((response) => {
-		console.log(response);
+		// console.log(response);
 		var restArr = [];
 		var restaurantList = response.data.nearby_restaurants;
 
@@ -25,13 +24,13 @@ function zomatoAPICall(lat, lng) {
 				rest_image: restaurantList[i].restaurant.featured_image
 			});
 		}
-		console.log('The Good Stuff:', restArr);
+		// console.log('The Good Stuff:', restArr);
 		axios.post('/api/restData', restArr).then((res) => {
-			console.log(res);
+			// console.log(res);
 		});
 	});
 }
-
+//called when btn clicked
 function getLocation() {
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(showPosition);
@@ -41,6 +40,7 @@ function getLocation() {
 	}
 }
 
+//helper function
 function showPosition(position) {
 	x.innerHTML = 'Latitude: ' + position.coords.latitude + '<br>Longitude: ' + position.coords.longitude;
 	console.log(position.coords.latitude);

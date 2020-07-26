@@ -61,14 +61,14 @@
 <section id="hero">
   <div class="hero-container">
     <h1>Welcome to NoQ</h1>
-    <h2>Restaurant Wait Times in Real Time! <b>Earn Points</b> for Checking In</h2>
+    <h2>Restaurant Wait Times in Real Time!</h2>
     <form>
       <div class="input-group mb-3">
-        <input type="text" class="form-control" id="searchInput" placeholder="Restaurant or Location" action="POST">
-        
-      </div>
+        {{!-- <input type="text" class="form-control" id="searchInput" placeholder="Restaurant or Location" action="POST">
 
-      <a href="#searchBtn" id="#search" class="btn-get-started" onclick="getLocation()">Search</a>
+      </div> --}}
+
+        <a href="#searchBtn" id="#search" class="btn-get-started" onclick="getLocation()">Start</a>
 
 
     </form>
@@ -78,7 +78,7 @@
     <button onclick="getLocation()">Try It</button> --}}
     <p id="demo"></p>
 
-{{!--     
+    {{!--
     <form action="/zomato" method="post">
       Lat: <input type="text" name="lat" value="40.723548"><br>
       Lng: <input type="text" name="lng" value="-74.0085838"><br>
@@ -96,282 +96,233 @@
 
   <section id="facts">
 
-
     <div class="container wow fadeIn">
+      {{#each restData}}
+      {{this.REST_ID}}
       <div class="row">
         <div class="col-lg-3 col-6">
-          <img src={{rest_image}} class="img-thumbnail"
-            alt="">
+          <img src={{this.REST_IMAGE}} class="img-thumbnail" alt="">
         </div>
         <div class="col-lg-9 col-18">
           <div class="section-header">
-            <h3 class="section-title">{{rest_name}}</h3>
-            <p class="section-description">{{rest_address}}</p>
+            <h3 class="section-title"></h3>
+            <p class="section-description">{{this.REST_ADDRESS}}</p>
           </div>
           <div class="row counters">
 
 
             <div class="col-lg-3 col-6 text-center">
-              <span data-toggle="counter-up">{{totalWaiting}}</span>
+              <span data-toggle="counter-up">{{this.REST_NAME}}</span>
               <p>Now Waiting</p>
             </div>
 
             <div class="col-lg-3 col-6 text-center">
-              <span data-toggle="counter-up">{{party2Max.avgWait}}</span>
-              <p>Mins Wait (Party of 2)</p>
+              <span data-toggle="counter-up">
+
+                {{#if this.checkins}}
+                {{#each this.checkins}}
+                {{#if @last}}
+                {{this.CURRENT_WAIT}}
+                {{/if}}
+                {{/each}}
+                {{else}}
+                0
+                {{/if}}
+              </span>
+              <p>Wait Time</p>
             </div>
 
             <div class="col-lg-3 col-6 text-center">
-              <span data-toggle="counter-up">{{party3More.avgWait}}</span>
-              <p>Mins Wait (3 or more)</p>
+              <span data-toggle="counter-up">
+                {{#if this.checkins.CURRENT_WAIT}}
+                {{this.checkins.CURRENT_WAIT}}
+                {{else}}
+                0
+                {{/if}}
+              </span>
+              {{!-- <p>Mins Wait (3 or more)</p> --}}
             </div>
+            <button class="btn btn-primary myBtn" data-id={{this.REST_ID}}>Check into Waitlist</button>
+          </div>
+          <hr>
 
+        </div>
+      </div>
 
+      {{/each}}
+      <div id="myModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div id="modelInputs input-group mb-3">
+              <form class="clearfix mb-4 form-control" id="modalForm" action="/api/checkins/wdsdsadadas" method="POST">
+                <h2>Add your current wait time!</h2>
+                <input name="USER_EMAIL" type="email" class="form-control-1" placeholder="Enter Email Address">
+                {{!-- <input name="REST_ID" type="hidden" id="example-text" class="form-control-1" placeholder="Enter Resturant"> --}}
+                <input name="CURRENT_WAIT" type="number" class="form-control-1"
+                  placeholder="Enter Current Wait Time (mins)">
+                {{!-- <input name="PARTY_SIZE" type="number" class="form-control-1" placeholder="Enter Party Size"> --}}
 
-            <!--==========================
-            Modal Pop-up to add current waittimes
-            ============================-->
-            <button class="btn btn-primary" id="myBtn">Check into Waitlist</button>
-
-            <div id="myModal" class="modal" tabindex="-1" role="dialog">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div id="modelInputs input-group mb-3">
-                    <form class="clearfix mb-4 form-control" action="/api/checkins/{{rest_id}}" method="POST">
-
-
-                      <h2>Add your current wait time!</h2>
-
-                      <input name="USER_EMAIL" type="email" class="form-control-1" placeholder="Enter Email Address">
-                      {{!-- <input name="REST_ID" type="hidden" id="example-text" class="form-control-1" placeholder="Enter Resturant"> --}}
-                      <input name="CURRENT_WAIT" type="number" class="form-control-1"
-                        placeholder="Enter Current Wait Time (mins)">
-                      <input name="PARTY_SIZE" type="number" class="form-control-1" placeholder="Enter Party Size">
-
-                      <button id="submitWait" class="btn btn-primary float-right">Submit</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
+                <button id="submitWait" class="btn btn-primary float-right">Submit</button>
+              </form>
             </div>
-
           </div>
         </div>
       </div>
 
-
-      {{!-- {{#each checkins}}
-      {{USER_EMAIL}}
-      {{/each}} --}}
-
-      {{!-- {{#each data.nearby_restaurants}}
-      <div data-id="{{this.id}}" class="container wow fadeIn row">
-        <div class="col-lg-3 col-6">
-          <img src="{{this.featured_image}}" class="img-thumbnail" alt="image of {{this.name}}">
-        </div>
-        <div class="col-lg-9 col-18">
-          <div class="section-header">
-            <h3 class="section-title">{{this.name}}</h3>
-            <p class="section-description">{{this.cuisines}}</p>
-          </div>
-          <div class="row counters">
-
-
-
-            <div class="col-lg-3 col-6 text-center">
-              <span data-toggle="counter-up">{{this.waiting}}</span>
-              <p>Now Waiting</p>
-            </div>
-
-            <div class="col-lg-3 col-6 text-center">
-              <span data-toggle="counter-up">{{this.smallParty}}</span>
-              <p>Mins Wait (Party of 2)</p>
-            </div>
-
-
-            <div class="col-lg-3 col-6 text-center">
-              <span data-toggle="counter-up">{{this.largeParty}}</span>
-              <p>Mins Wait (3 or more)</p>
-            </div>
-
-
-          </div>
-        </div>
-        <button class="btn btn-danger delete" id="checkInBtn-{{this.id}}">Check In</button>
-        {{/each}} --}}
   </section><!-- #restaurants -->
-   {{! About us /  presentation --}}
-    <section id="team">
-        <div class="container wow fadeInUp">
-          <div class="section-header">
-            <h3 class="section-title">Team Lately</h3>
-            <p class="section-description">The latest, greatest team in the building!</p>
-          </div>
-  
-  <div class="row">
-            <div class="col-lg-3 col-md-6">
-              <div class="member">
-                <div class="pic"><img src="/image/Mugs/john.jpg" alt="John Harper product manager"></div>
-                <h4>John Harper</h4>
-                <span>Product Designer</span>
-                <div class="social">
-                  <a href=""><i class="fa fa-twitter"></i></a>
-                  <a href=""><i class="fa fa-facebook"></i></a>
-                  <a href=""><i class="fa fa-google-plus"></i></a>
-                  <a href=""><i class="fa fa-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
+  {{! About us /  presentation --}}
+  {{!-- <section id="team">
+    <div class="container wow fadeInUp">
+      <div class="section-header">
+        <h3 class="section-title">Team Lately</h3>
+        <p class="section-description">The latest, greatest team in the building!</p>
+      </div>
 
-            <div class="col-lg-3 col-md-6">
-              <div class="member">
-                <div class="pic"><img src="/image/Mugs/kayode.jpg" alt=""></div>
-                <h4>Kayode Ouseni</h4>
-                <span>Quality Assurance Boss</span>
-                <div class="social">
-                  <a href=""><i class="fa fa-twitter"></i></a>
-                  <a href=""><i class="fa fa-facebook"></i></a>
-                  <a href=""><i class="fa fa-google-plus"></i></a>
-                  <a href=""><i class="fa fa-linkedin"></i></a>
-                </div>
-              </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-6">
+          <div class="member">
+            <div class="pic"><img src="/image/Mugs/john.jpg" alt="John Harper product manager"></div>
+            <h4>John Harper</h4>
+            <span>Product Designer</span>
+            <div class="social">
+              <a href=""><i class="fa fa-twitter"></i></a>
+              <a href=""><i class="fa fa-facebook"></i></a>
+              <a href=""><i class="fa fa-google-plus"></i></a>
+              <a href=""><i class="fa fa-linkedin"></i></a>
             </div>
-
-                
-            <div class="col-lg-3 col-md-6">
-              <div class="member">
-                <div class="pic"><img src="/image/Mugs/sam.png" alt="Sam Will Database Engineer"></div>
-                <h4>Sam Will</h4>
-                <span>Database Engineer</span>
-                <div class="social">
-                  <a href=""><i class="fa fa-twitter"></i></a>
-                  <a href=""><i class="fa fa-facebook"></i></a>
-                  <a href=""><i class="fa fa-google-plus"></i></a>
-                  <a href=""><i class="fa fa-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-  
-            <div class="col-lg-3 col-md-6">
-              <div class="member">
-                <div class="pic"><img src="/image/Mugs/sean.png" alt="Sean Hellier"></div>
-                <h4>Sean Hellier</h4>
-                <span>Project Manager</span>
-                <div class="social">
-                  <a href=""><i class="fa fa-twitter"></i></a>
-                  <a href=""><i class="fa fa-facebook"></i></a>
-                  <a href=""><i class="fa fa-google-plus"></i></a>
-                  <a href=""><i class="fa fa-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-            
           </div>
-  
         </div>
-      </section><!-- #team -->
-    <!--==========================
+
+        <div class="col-lg-3 col-md-6">
+          <div class="member">
+            <div class="pic"><img src="/image/Mugs/kayode.jpg" alt=""></div>
+            <h4>Kayode Ouseni</h4>
+            <span>Quality Assurance Boss</span>
+            <div class="social">
+              <a href=""><i class="fa fa-twitter"></i></a>
+              <a href=""><i class="fa fa-facebook"></i></a>
+              <a href=""><i class="fa fa-google-plus"></i></a>
+              <a href=""><i class="fa fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+          <div class="member">
+            <div class="pic"><img src="/image/Mugs/sam.png" alt="Sam Will Database Engineer"></div>
+            <h4>Sam Will</h4>
+            <span>Database Engineer</span>
+            <div class="social">
+              <a href=""><i class="fa fa-twitter"></i></a>
+              <a href=""><i class="fa fa-facebook"></i></a>
+              <a href=""><i class="fa fa-google-plus"></i></a>
+              <a href=""><i class="fa fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="member">
+            <div class="pic"><img src="/image/Mugs/sean.png" alt="Sean Hellier"></div>
+            <h4>Sean Hellier</h4>
+            <span>Project Manager</span>
+            <div class="social">
+              <a href=""><i class="fa fa-twitter"></i></a>
+              <a href=""><i class="fa fa-facebook"></i></a>
+              <a href=""><i class="fa fa-google-plus"></i></a>
+              <a href=""><i class="fa fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- #team --> --}}
+  <!--==========================
       Services Section
     ============================-->
-    <section id="services">
-      <div class="container wow fadeIn">
-        <div class="section-header">
-          <h3 class="section-title">The Problem</h3>
-          <p class="section-description">Wait times at restaurants and clubs can make you late and interrupt life, but remain a guessing game.</p>
-        </div>
-        <div class="row">
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-            <div class="box">
-              <div class="icon"><a href=""><i class="fa fa-user-clock"></i></a></div>
-              <h4 class="title"><a href="">Time Is Valuable</a></h4>
-              <p class="description">Sometimes we need food, or a place to sit down and eat, quickly.</p>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
-            <div class="box">
-              <div class="icon"><a href=""><i class="fa fa-question"></i></a></div>
-              <h4 class="title"><a href="">Little Data</a></h4>
-              <p class="description">We know if trains are delayed or airports are congested, but what about our local businesses?</p>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-            <div class="box">
-              <div class="icon"><a href=""><i class="fa fa-phone"></i></a></div>
-              <h4 class="title"><a href="">Phone Call</a></h4>
-              <p class="description">Often the best solution we have is picking up the phone and hoping to get a real answer from a restaurant (that wants your business).</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-            <div class="box">
-              <div class="icon"><a href=""><i class="fa fa-satellite-dish"></i></a></div>
-              <h4 class="title"><a href="">Real Time Data</a></h4>
-              <p class="description">What if you could see who was waiting, and how long they actually waited, at every restaurant near you, in real time.</p>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
-            <div class="box">
-              <div class="icon"><a href=""><i class="fa fa-user-check"></i></a></div>
-              <h4 class="title"><a href="">Crowd Sourced Data</a></h4>
-              <p class="description">No-Q collects real wait times from people who are waiting or have already been seated at restaurants in your area.</p>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-            <div class="box">
-              <div class="icon"><a href=""><i class="fa fa-shopping-bag"></i></a></div>
-              <h4 class="title"><a href=""></a>A Points Marketplace</h4>
-              <p class="description">Users earn points for submitting their data, and can exchange points to cut lines at popular clubs and restaurants.</p>
-            </div>
-          </div>
-        </div>
-
+  {{!-- <section id="services">
+    <div class="container wow fadeIn">
+      <div class="section-header">
+        <h3 class="section-title">The Problem</h3>
+        <p class="section-description">Wait times at restaurants and clubs can make you late and interrupt life, but
+          remain a guessing game.</p>
       </div>
-    </section><!-- #services -->
+      <div class="row">
+        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+          <div class="box">
+            <div class="icon"><a href=""><i class="fa fa-user-clock"></i></a></div>
+            <h4 class="title"><a href="">Time Is Valuable</a></h4>
+            <p class="description">Sometimes we need food, or a place to sit down and eat, quickly.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
+          <div class="box">
+            <div class="icon"><a href=""><i class="fa fa-question"></i></a></div>
+            <h4 class="title"><a href="">Little Data</a></h4>
+            <p class="description">We know if trains are delayed or airports are congested, but what about our local
+              businesses?</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+          <div class="box">
+            <div class="icon"><a href=""><i class="fa fa-phone"></i></a></div>
+            <h4 class="title"><a href="">Phone Call</a></h4>
+            <p class="description">Often the best solution we have is picking up the phone and hoping to get a real
+              answer from a restaurant (that wants your business).</p>
+          </div>
+        </div>
 
-    <!--==========================
+        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+          <div class="box">
+            <div class="icon"><a href=""><i class="fa fa-satellite-dish"></i></a></div>
+            <h4 class="title"><a href="">Real Time Data</a></h4>
+            <p class="description">What if you could see who was waiting, and how long they actually waited, at every
+              restaurant near you, in real time.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
+          <div class="box">
+            <div class="icon"><a href=""><i class="fa fa-user-check"></i></a></div>
+            <h4 class="title"><a href="">Crowd Sourced Data</a></h4>
+            <p class="description">No-Q collects real wait times from people who are waiting or have already been seated
+              at restaurants in your area.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+          <div class="box">
+            <div class="icon"><a href=""><i class="fa fa-shopping-bag"></i></a></div>
+            <h4 class="title"><a href=""></a>A Points Marketplace</h4>
+            <p class="description">Users earn points for submitting their data, and can exchange points to cut lines at
+              popular clubs and restaurants.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- #services --> --}}
+
+  <!--==========================
     Call To Action Section
     ============================-->
-    <section id="call-to-action">
-      <div class="container wow fadeIn">
-        <div class="row">
-          <div class="col-lg-9 text-center text-lg-left">
-            <h3 class="cta-title">Try NoQ Today and Lose the Unexpected Wait!</h3>
-            <p class="cta-text"> Click  to get started</p>
-          </div>
-          <div class="col-lg-3 cta-btn-container text-center">
-            <a class="cta-btn align-middle" href="#hero">NoQ!</a>
-          </div>
+  <section id="call-to-action">
+    <div class="container wow fadeIn">
+      <div class="row">
+        <div class="col-lg-9 text-center text-lg-left">
+          <h3 class="cta-title">Try NoQ Today!</h3>
+
         </div>
 
       </div>
-    </section><!-- #call-to-action -->
 
-<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+    </div>
+  </section><!-- #call-to-action -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
   <script src="/js/index.js"></script>
   <script src="/js/zomato.js"></script>
-
-  
-  
-
-  {{!-- <!-- JavaScript Libraries -->
-  <script src="lib/jquery/jquery.min.js"></script>
-  <script src="lib/jquery/jquery-migrate.min.js"></script>
-  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="lib/easing/easing.min.js"></script>
-  <script src="lib/wow/wow.min.js"></script>
-  <script src="lib/waypoints/waypoints.min.js"></script>
-  <script src="lib/counterup/counterup.min.js"></script>
-  <script src="lib/superfish/hoverIntent.js"></script>
-  <script src="lib/superfish/superfish.min.js"></script>
-
-  <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script> --}}
-
-  <!-- Template Main Javascript File -->
-  <script src="js/main.js"></script>
-
-
-  {{!-- <script src="/js/index.js"></script> --}}
