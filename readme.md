@@ -50,5 +50,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Deployment
 
-[Heroku](https://team-lately.herokuapp.com/#searchBtn)
+[Heroku](https://team-lately.herokuapp.com/)
+
 [Github](https://github.com/seanhellier/team-lately)
